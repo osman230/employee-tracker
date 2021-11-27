@@ -20,7 +20,11 @@ Console.table package
 
 ## App tutorial 
 
-https://user-images.githubusercontent.com/88051358/143668045-672da3e4-4808-41a1-acd6-1aa59ad711b0.mp4
+
+
+https://user-images.githubusercontent.com/88051358/143684679-c1836754-d9d4-4c9f-a2d6-30f25e88781c.mp4
+
+
 
 ## Contributions
 
