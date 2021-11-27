@@ -54,12 +54,39 @@ const questions = () => {
     });
 };
 
+viewDepartments = () => { 
+  const sql = 'SELECT * FROM department';
+  db.query(sql, (err, data) => {
+    if (err) throw err;
+    console.table(data);
+        questions();
+    });
+};
+
+viewRoles = () => {
+  const sql = 'SELECT * FROM role';
+  db.query(sql, (err, data) => {
+    if (err) throw err;
+    console.table(data);
+        questions();
+    });
+};
+
+viewEmployees = () => {
+  const sql = 'SELECT * FROM employee';
+  db.query(sql, (err, data) => {
+    if (err) throw err;
+    console.table(data);
+        questions();
+    });
+};
+
 addDepartment = () => {
   inquirer
     .prompt({
       name: 'department',
       type: 'input',
-      message: 'What is the name is the department?'
+      message: 'Enter department name:'
     })
     .then((data) => {
       db.query('INSERT INTO department SET ?', {
@@ -143,35 +170,6 @@ addEmployee = () => {
       });
     });
 }
-viewDepartments = () => { 
-  db.query('SELECT * FROM department', (err, data) => {
-    if (err) throw err;
-    data.forEach((options) => {
-      console.log(options.name)
-    });
-    questions();
-  });
-};
-
-viewRoles = () => {
-  db.query('SELECT * FROM role', (err, data) => {
-    if (err) throw err;
-    data.forEach((options) => {
-      console.log(options.title)
-    });
-    questions();
-  });
-};
-
-viewEmployees = () => {
-  db.query('SELECT * FROM employee', (err, data) => {
-    if (err) throw err;
-    data.forEach((options) => {
-      console.log(options.first_name, options.last_name)
-    });
-    questions();
-  });
-};
 
 
 db.connect((err) => {
