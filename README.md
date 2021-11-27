@@ -2,6 +2,7 @@
 
 ## Usage
 A directory created to keep track of your employees.
+** IF YOU HAVE ANY ISSUES USING THE DIRECTORY, PLEASE ADD YOUR MYSQL PASSWORD TO THE CONNECTION.JS FILE **
 
 ## Software Used
 Node.js
