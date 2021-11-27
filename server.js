@@ -74,43 +74,29 @@ addDepartment = () => {
 };
 
 addRole = () => {
-  db.query('SELECT * FROM department', (err, results) => {
-    if (err) throw err;
     inquirer
-      .prompt([{
-          name: 'department',
-          type: 'list',
-          choices: function () {
-            const departmentOptions = [];
-            results.forEach(({
-              id,
-              name
-            }) => {
-              departmentOptions.push({
-                name: name,
-                value: id
-              });
-            });
-            return departmentOptions;
-
-          }
-        },
-        {
+      .prompt([
+          {
           name: 'title',
           type: 'input',
-          message: 'Enter Role'
+          message: "Enter role name: "
+          },
+        {
+          name: 'department',
+          type: 'input',
+          message: 'Enter department:'
         },
         {
           name: 'salary',
           type: 'input',
-          message: 'Enter salary'
+          message: 'Enter salary:'
         }
       ])
       .then((data) => {
         db.query('INSERT INTO role SET ?', {
             title: data.title,
             salary: data.salary,
-            department_id: data.department
+            department_id: data.department,
           },
           (err, data) => {
             if (err) throw err;
@@ -118,79 +104,45 @@ addRole = () => {
             questions();
           });
       });
-  });
 };
 
 addEmployee = () => {
-  db.query('SELECT * FROM employee', (err, arrayOptions) =>{    
-    const teamMembers = arrayOptions.map(employee => {
-      return {
-        name: (employee.first_name, employee.last_name),
-        value: employee.id
-      };
-    });
-    let team;
-    inquirer
-      .prompt([{
-        name: 'team',
-        type: 'list',
-        message: 'Select manager',
-        choices: teamMembers
-      }])
-      .then ((data) => {
-        manager = data.team
-        db.query('SELECT * FROM role', (err, data) => {
-          if(err) throw err;
-
-          inquirer
-          .prompt([
-            {
-              name: 'role',
-              type: 'list',
-              message: 'Enter employee\'s role',
-              choices: function () {
-                const newInfo = [];
-                data.forEach(({
-                  title,
-                  id
-                }) => {
-                  newInfo.push({
-                    name: title, 
-                    value: id
-                  });
-                });
-                return newInfo;
-              },
-            },
-            {
-              name: 'firstName', 
-              type: 'input', 
-              message: 'Enter first name'
-            },
-            {
-              name: 'lastName',
-              type: 'input',
-              message: 'Enter last name'
-            }
-          ])
-        .then((data) => {
-          db.query('INSERT INTO employee SET ?', {
-            first_name: data.firstName, 
-            last_name: data.lastName,
-            role_id: data.role,
-            manager_id: team
-          },
-          (err, res) => {
-            if(err) throw err;
-            console.log('success!');
-            questions();
-          });
-        });
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Employee\'s First Name: ",
+        name: "first_name"
+      },
+      {
+        type: "input",
+        message: "Employee\'s Last Name: ",
+        name: "last_name"
+      },
+      {
+        type: "input",
+        message: "Employee\'s Role Id: ",
+        name: "role_id"
+      },
+      {
+        type: "input",
+        message: "Manager\'s Id: ",
+        name: "manager_id"
+      }
+    ])
+    .then(function(data) {
+     db.query('INSERT INTO employee SET ?', {
+        first_name: data.first_name, 
+        last_name: data.last_name,
+        role_id: data.role_id, 
+        manager_id: data.manager_id },
+          (err, data) => {
+          if (err) throw err;
+          console.log('success!');
+          questions();
       });
     });
-  });
-};
-
+}
 viewDepartments = () => { 
   db.query('SELECT * FROM department', (err, data) => {
     if (err) throw err;
