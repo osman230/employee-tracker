@@ -22,7 +22,10 @@ Console.table package
 
 
 
-https://user-images.githubusercontent.com/88051358/143684679-c1836754-d9d4-4c9f-a2d6-30f25e88781c.mp4
+
+
+https://user-images.githubusercontent.com/88051358/143685761-f7564624-f7bf-4b8f-a55f-29b3d67e780b.mp4
+
 
 
 
